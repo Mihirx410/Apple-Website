@@ -104,10 +104,12 @@ const VideoCarousel = () => {
 
       // update the progress bar
       const animUpdate = () => {
-        anim.progress(
-          videoRef.current[videoId].currentTime /
-            hightlightsSlides[videoId].videoDuration
-        );
+        const video = videoRef.current[videoId];
+        const duration = hightlightsSlides[videoId]?.videoDuration;
+      
+        if (video && duration) {
+          anim.progress(video.currentTime / duration);
+        }
       };
 
       if (isPlaying) {
@@ -121,13 +123,16 @@ const VideoCarousel = () => {
   }, [videoId, startPlay]);
 
   useEffect(() => {
-    if (loadedData.length > 3) {
-      if (!isPlaying) {
-        videoRef.current[videoId].pause();
-      } else {
-        startPlay && videoRef.current[videoId].play();
-      }
-    }
+    const currentVideo = videoRef.current[videoId];
+
+if (currentVideo) {
+  if (!isPlaying) {
+    currentVideo.pause();
+  } else if (startPlay) {
+    currentVideo.play();
+  }
+}
+
   }, [startPlay, videoId, isPlaying, loadedData]);
 
   // vd id is the id for every video until id becomes number 3
@@ -218,7 +223,7 @@ const VideoCarousel = () => {
           ))}
         </div>
 
-        <button className="control-btn">
+        <button className="control-btn z-10">
           <Image
             src={isLastVideo ? replayImg : !isPlaying ? playImg : pauseImg}
             alt={isLastVideo ? "replay" : !isPlaying ? "play" : "pause"}

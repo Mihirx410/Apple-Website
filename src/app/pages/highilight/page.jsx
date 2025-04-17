@@ -4,7 +4,7 @@ import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import Image from 'next/image'
 import React from 'react'
-import VideoCarousel from '../videocarousel/videocarousel'
+import VideoCarousel from '../../components/videocarousel/videocarousel'
 
 const Highilight = () => {
 

@@ -25,6 +25,7 @@
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
+          <div id="root"></div>
           {children}
         </body>
       </html>
